@@ -36,8 +36,19 @@ int currentState1 = S_1_3_DRIVE_2_4_STOP;
 int currentState2 = S_PREPARE_TO_WALK_F1_F3;
 int currentState3 = S_PREPARE_TO_WALK_F2_F4;
 
-boolean pedestrianF1 = false;
-boolean pedestrianF4 = false;
+boolean pedestrianF1Pressed; 
+boolean pedestrianF4Pressed;
+
+boolean checkPressed; //kan sette den til false hvis det ikke funker
+
+//inni case
+checkPressed = true;
+if (checkPressed)
+{
+    isButtonPressedF1();
+    checkPressed = false; 
+}
+
 
 
 void setup()
@@ -207,9 +218,9 @@ void defaultState()
         startTimer(5000);
         changeStateTo1(S_1_3_PREPARE_TO_STOP_2_4_PREPARE_TO_DRIVE);
       }
-
+      
       break;
-
+      
     case S_1_3_PREPARE_TO_STOP_2_4_PREPARE_TO_DRIVE:
       if (timerHasExpired())
       {
@@ -359,9 +370,7 @@ void uteAvDrift()
 
 boolean isButtonPressedF1()
 {
-  int buttonState = digitalRead(BUTTON_F1_F3);
-    boolean buttonPressed;
-  if (buttonState == HIGH)
+  if(digitalRead(BUTTON_F1_F3) == HIGH)
   {
     pedestrianF1 = true;
   }
@@ -377,9 +386,7 @@ boolean isButtonPressedF1()
 
 boolean isButtonPressedF4()
 {
-  int buttonState = digitalRead(BUTTON_F2_F4);
-    boolean buttonPressed;
-  if (buttonState == HIGH)
+  if (digitalRead(BUTTON_F2_F4) == HIGH)
   {
     pedestrianF4 = true;
   }
@@ -387,7 +394,7 @@ boolean isButtonPressedF4()
   {
     pedestrianF4 = false;
   }
-  return pedestrianF4;
+  return pedestrianF4; //sender tilbake true/false. Kommer ann på om buttonState == HIGH/LOW
 
   Serial.println(pedestrianF4);
 }
@@ -408,7 +415,7 @@ boolean timerHasExpired()
 }
 
 
-void startTimer(unsigned long duration)
+void startTimer(unsigned long duration) 
 {
   nextTimeout = millis() + duration;
 }
