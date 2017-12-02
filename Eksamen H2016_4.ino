@@ -37,6 +37,8 @@ void setup() {
 
 void loop() {
   countdownChessClock();
+  isButtonStartStoppedPressed();
+  isChangePlayerButtonPressed();
 }
 
 void countdownChessClock()
@@ -180,7 +182,7 @@ void setupLCD()
 
 void resetPlayerClocks()
 {
-  timeLeftPlayer1 = PLAY_TIME;
+  timeLeftPlayer1 = PLAY_TIMEupdateDisplay
   timeLeftPlayer2 = PLAY_TIME;
 }
 
@@ -193,7 +195,7 @@ void resetPlayerClocks()
 */
 void updateDisplay( int timeLeftPlayer1, int timeLeftPlayer2 )
 {
-  char timeString[17] = "";
+  char timeString[17] = ""; //("") = tom
   lcd.setCursor(0, 1);
 
   sprintf(timeString, "  %02d:%02d  %02d:%02d  ",
